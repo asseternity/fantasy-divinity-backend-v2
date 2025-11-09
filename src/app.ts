@@ -3,8 +3,34 @@ import "dotenv/config";
 import express, { Request, Response, NextFunction } from "express";
 import path from "node:path";
 import { PrismaClient } from "@prisma/client";
-const prisma = new PrismaClient();
 const app = express();
+
+// Diagnostics
+console.log("=== Startup diagnostics ===");
+console.log("NODE_ENV:", process.env.NODE_ENV);
+console.log("PORT (from env):", process.env.PORT);
+console.log(
+  "DATABASE_URL (masked):",
+  process.env.DATABASE_URL ? "✅ set" : "❌ missing"
+);
+console.log("PWD:", process.cwd());
+console.log("CWD files:", require("fs").readdirSync("."));
+console.log(
+  "Dist files:",
+  require("fs").existsSync("./dist")
+    ? require("fs").readdirSync("./dist")
+    : "no dist dir"
+);
+console.log("============================");
+
+// Prisma
+let prisma: PrismaClient | null = null;
+try {
+  prisma = new PrismaClient();
+  console.log("✅ Prisma client initialized successfully");
+} catch (err) {
+  console.error("❌ Prisma initialization failed:", err);
+}
 
 // settings
 app.set("views", path.join(__dirname, "views"));
