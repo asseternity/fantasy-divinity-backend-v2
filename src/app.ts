@@ -2,6 +2,7 @@
 import "dotenv/config";
 import express, { Request, Response, NextFunction } from "express";
 import path from "node:path";
+import cors from "cors";
 import { PrismaClient } from "@prisma/client";
 const app = express();
 
@@ -31,6 +32,14 @@ try {
 } catch (err) {
   console.error("❌ Prisma initialization failed:", err);
 }
+
+// cors
+app.use(
+  cors({
+    origin: ["http://localhost:5173"],
+    credentials: true,
+  })
+);
 
 // settings
 app.set("views", path.join(__dirname, "views"));
