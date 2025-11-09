@@ -24,7 +24,7 @@ console.log(
 console.log("============================");
 
 // Prisma
-let prisma: PrismaClient | null = null;
+let prisma!: PrismaClient;
 try {
   prisma = new PrismaClient();
   console.log("✅ Prisma client initialized successfully");
