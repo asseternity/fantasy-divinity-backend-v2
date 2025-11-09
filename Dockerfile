@@ -16,5 +16,5 @@ RUN npx prisma generate
 RUN npm run build && ls -la dist || (echo "❌ dist missing" && exit 1)
 # Expose the port your app uses
 EXPOSE 3000
-# Start your app
-CMD ["npm", "run", "start"]
+# Start with migrations + app launch
+CMD sh -c "npx prisma migrate deploy && npx prisma generate && npm run start"
