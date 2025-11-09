@@ -8,6 +8,8 @@ COPY package*.json ./
 RUN npm install
 # Copy rest of the project
 COPY . .
+# Generate Prisma client
+RUN npx prisma generate
 # Build TypeScript if applicable
 RUN npm run build
 # Expose the port your app uses
