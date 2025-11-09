@@ -12,8 +12,8 @@ COPY . .
 ENV DATABASE_URL="postgresql://user:password@localhost:5432/dbname"
 # Generate Prisma client
 RUN npx prisma generate
-# Build TypeScript if applicable
-RUN npm run build
+# Build TypeScript and show output
+RUN npm run build && ls -la dist || (echo "❌ dist missing" && exit 1)
 # Expose the port your app uses
 EXPOSE 3000
 # Start your app
