@@ -8,6 +8,8 @@ COPY package*.json ./
 RUN npm install
 # Copy rest of the project
 COPY . .
+# Fake DB URL just for Prisma client generation
+ENV DATABASE_URL="postgresql://user:password@localhost:5432/dbname"
 # Generate Prisma client
 RUN npx prisma generate
 # Build TypeScript if applicable
