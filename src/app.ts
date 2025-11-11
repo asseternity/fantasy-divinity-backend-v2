@@ -82,6 +82,10 @@ app.get(
   }
 );
 
+// mount routes
+import testRoute from "./routes/testRoute";
+app.use("/test", testRoute);
+
 // launch
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
